@@ -1,0 +1,150 @@
+CREATE DATABASE borah_pastelaria;
+PRAGMA foreign_keys = ON;
+
+-- 👤 Usuários
+CREATE TABLE proprietario (
+    proid INTEGER PRIMARY KEY AUTOINCREMENT,
+    pronome TEXT NOT NULL,
+    proemail TEXT NOT NULL UNIQUE,
+    prosenha TEXT NOT NULL
+);
+
+CREATE TABLE funcionarios (
+    funid INTEGER PRIMARY KEY AUTOINCREMENT,
+    funnome TEXT NOT NULL,
+    funcargo TEXT,
+    funtelefone TEXT NOT NULL UNIQUE,
+    funsenha TEXT NOT NULL
+);
+
+CREATE TABLE clientes (
+    cliid INTEGER PRIMARY KEY AUTOINCREMENT,
+    clinome TEXT NOT NULL,
+    clitelefone TEXT NOT NULL UNIQUE,
+    cliemail TEXT NOT NULL UNIQUE,
+    cliendereco TEXT,
+    clisenha TEXT,
+    clicpf TEXT NOT NULL UNIQUE
+);
+
+-- 🍴 Cardápio
+CREATE TABLE sabores (
+    sabid INTEGER PRIMARY KEY AUTOINCREMENT,
+    sabnome TEXT NOT NULL,
+    sabpreco REAL NOT NULL,
+    sabdescricao TEXT NOT NULL
+);
+
+CREATE TABLE bebidas (
+    bebid INTEGER PRIMARY KEY AUTOINCREMENT,
+    bebnome TEXT NOT NULL,
+    bebpreco REAL NOT NULL
+);
+
+CREATE TABLE adicionais (
+    adiid INTEGER PRIMARY KEY AUTOINCREMENT,
+    ainome TEXT NOT NULL,
+    adipreco REAL NOT NULL
+);
+
+CREATE TABLE especiais (
+    espid INTEGER PRIMARY KEY AUTOINCREMENT,
+    espdescricao TEXT,
+    espdata TEXT,
+    esppreco REAL
+);
+
+-- 🪑 Consumo
+CREATE TABLE forma_consumo (
+    conid INTEGER PRIMARY KEY AUTOINCREMENT,
+    contipo TEXT NOT NULL
+);
+
+CREATE TABLE mesas (
+    mesid INTEGER PRIMARY KEY AUTOINCREMENT,
+    mesnumero INTEGER NOT NULL,
+    status TEXT DEFAULT 'livre'
+);
+
+-- 💳 Pagamento
+CREATE TABLE forma_pagamento (
+    pagid INTEGER PRIMARY KEY AUTOINCREMENT,
+    pagtipo TEXT NOT NULL
+);
+
+-- 📦 Pedido
+CREATE TABLE pedidos (
+    pedid INTEGER PRIMARY KEY AUTOINCREMENT,
+    pedcliid INTEGER,
+    pedmesid INTEGER,
+    pedconid INTEGER,
+    pedstatus TEXT DEFAULT 'aberto',
+    peddata_hora TEXT DEFAULT CURRENT_TIMESTAMP,
+    pedtempo INTEGER,
+
+    FOREIGN KEY (pedcliid) REFERENCES clientes(cliid) ON DELETE SET NULL,
+    FOREIGN KEY (pedmesid) REFERENCES mesas(mesid) ON DELETE SET NULL,
+    FOREIGN KEY (pedconid) REFERENCES forma_consumo(conid)
+);
+
+-- 🧾 Itens
+CREATE TABLE itens_pedido (
+    iteid INTEGER PRIMARY KEY AUTOINCREMENT,
+    itepedid INTEGER NOT NULL,
+    itetipo TEXT,
+    iteproid INTEGER,
+    iteqtd INTEGER NOT NULL,
+
+    FOREIGN KEY (itepedid) REFERENCES pedidos(pedid) ON DELETE CASCADE
+);
+
+-- ➕ Adicionais do item
+CREATE TABLE adicionais_pedido (
+    adipid INTEGER PRIMARY KEY AUTOINCREMENT,
+    adipiteid INTEGER,
+    idipadiid INTEGER,
+
+    FOREIGN KEY (adipiteid) REFERENCES itens_pedido(iteid) ON DELETE CASCADE,
+    FOREIGN KEY (idipadiidl) REFERENCES adicionais(adiid)
+);
+
+-- 💰 Venda
+CREATE TABLE vendas (
+    venid INTEGER PRIMARY KEY AUTOINCREMENT,
+    venpedid INTEGER,
+    venvalortotal REAL,
+    venpagid INTEGER,
+    vendata TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (venpedid) REFERENCES pedidos(pedid),
+    FOREIGN KEY (venpagid) REFERENCES forma_pagamento(pagid)
+);
+
+-- 📊 Caixa
+CREATE TABLE caixa (
+    caiid INTEGER PRIMARY KEY AUTOINCREMENT,
+    caidata TEXT,
+    caitotal_entrada REAL,
+    caitotal_saida REAL
+);
+
+-- 🔔 Notificações
+CREATE TABLE notificacao (
+    notid INTEGER PRIMARY KEY AUTOINCREMENT,
+    notcliid INTEGER,
+    notmensagem TEXT,
+    notstatus TEXT,
+    notdata_hora TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (notcliid) REFERENCES clientes(cliid)
+);
+
+-- 🖨️ Impressão
+CREATE TABLE impressao (
+    impid INTEGER PRIMARY KEY AUTOINCREMENT,
+    imppedid INTEGER,
+    impimpresso BOOLEAN DEFAULT FALSE,
+    impdata_hora TEXT DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (imppedid) REFERENCES pedidos(pedid)
+);
