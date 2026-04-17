@@ -1,0 +1,79 @@
+-- Tabela de Categorias
+CREATE TABLE categorias (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL
+);
+
+-- Tabela de Produtos (pastéis, bebidas, adicionais)
+CREATE TABLE produtos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    descricao TEXT,
+    preco REAL NOT NULL,
+    categoria_id INTEGER,
+    especial_do_dia BOOLEAN DEFAULT 0,
+    ativo BOOLEAN DEFAULT 1,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+-- Tabela de Usuários (admin, atendente, etc)
+CREATE TABLE usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT UNIQUE,
+    senha TEXT NOT NULL,
+    tipo TEXT NOT NULL -- admin, atendente, etc
+);
+
+-- Tabela de Clientes
+CREATE TABLE clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    telefone TEXT,
+    email TEXT
+);
+
+-- Tabela de Pedidos
+CREATE TABLE pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cliente_id INTEGER,
+    tipo TEXT NOT NULL, -- mesa, retirada
+    status TEXT DEFAULT 'pendente', -- pendente, preparando, pronto, entregue
+    valor REAL,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    agendado_para DATETIME,
+    tempo_estimado INTEGER, -- em minutos
+    mesa_numero INTEGER,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+-- Itens do Pedido
+CREATE TABLE itens_pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pedido_id INTEGER,
+    produto_id INTEGER,
+    quantidade INTEGER NOT NULL,
+    preco_unitario REAL NOT NULL,
+    observacao TEXT,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+-- Pagamentos
+CREATE TABLE pagamentos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pedido_id INTEGER,
+    forma TEXT NOT NULL, -- dinheiro, pix, cartão
+    valor REAL NOT NULL,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+);
+
+-- Caixa (controle financeiro diário)
+CREATE TABLE caixa (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    data DATE NOT NULL,
+    total_entrada REAL DEFAULT 0,
+    total_saida REAL DEFAULT 0,
+    saldo REAL
+);
