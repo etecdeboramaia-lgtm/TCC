@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2026/04/17 10:18:45.096,=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 10:56:43.148,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\LoginProprietario.pas=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 10:56:43.148,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\LoginProprietario.fmx=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2026/04/17 10:57:12.222,=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 11:13:29.744,=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2026/04/17 12:04:15.101,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\MenuProprietario.fmx=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2026/04/17 12:04:15.101,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\MenuProprietario.pas=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 12:18:22.770,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\AdmCadCategoria.pas=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2026/04/17 12:18:22.770,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\AdmCadCategoria.fmx=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>2026/04/17 12:19:10.987,=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 12:27:14.178,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\AdmConCategoria.fmx=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2026/04/17 12:27:14.178,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\AdmConCategoria.pas=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2026/04/17 12:27:30.739,C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\BorahPastelaria.dproj=C:\Users\Aluno\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
